@@ -9,7 +9,7 @@ All scripts run on the **host machine**. For scripts that run inside a guest VM,
 This toolset covers the full VM provisioning lifecycle:
 1. Host machine setup (`Brewfile`)
 2. VM user creation (`create-tart-user2.sh`)
-3. VS Code web access via app shim (`setup-vscode-webapp.sh`) or SSH tunnel (`ssh-vscode-port.sh`)
+3. VS Code web access via app shim (`setup-vscode-webapp.sh`)
 4. Icon customization (`update-icon.sh`, `iconoverlay.swift`)
 
 ## Files
@@ -22,7 +22,6 @@ This toolset covers the full VM provisioning lifecycle:
 | `host-provisioning-jobs.txt` | Manual one-time host setup tasks (e.g. `mkdir -p ~/.ssh/sockets`) |
 | `iconoverlay.swift` | Swift utility that overlays text onto `.icns` icon files |
 | `setup-vscode-webapp.sh` | Creates a standalone macOS `.app` shim for VS Code in a VM |
-| `ssh-vscode-port.sh` | Sets up an SSH tunnel with port forwarding to VS Code in a VM |
 | `update-icon.sh` | Wrapper around `iconoverlay.swift` to apply text labels to icons |
 
 ## Requirements
@@ -46,12 +45,6 @@ This toolset covers the full VM provisioning lifecycle:
 ```bash
 ./setup-vscode-webapp.sh <vm-name>
 # Installs to ~/Applications/VSCode VMs/<vm-name>.app
-```
-
-### SSH tunnel to VS Code
-```bash
-./ssh-vscode-port.sh -H <ssh-alias>          # use SSH config alias
-./ssh-vscode-port.sh -p 8080 <vm-name>       # custom port
 ```
 
 ### Apply text overlay to an icon
