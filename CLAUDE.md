@@ -22,6 +22,8 @@ This toolset covers the full VM provisioning lifecycle:
 | `host-provisioning-jobs.txt` | Manual one-time host setup tasks (e.g. `mkdir -p ~/.ssh/sockets`) |
 | `iconoverlay.swift` | Swift utility that overlays text onto `.icns` icon files |
 | `setup-vscode-webapp.sh` | Creates a standalone macOS `.app` shim for VS Code in a VM |
+| `ssh-tmux.sh` | SSH into a Tart VM and attach or create a named tmux session (iTerm2 CC mode) |
+| `ssh-run.sh` | SSH into a Tart VM and execute a script on the guest |
 | `update-icon.sh` | Wrapper around `iconoverlay.swift` to apply text labels to icons |
 
 ## Requirements
@@ -39,6 +41,16 @@ This toolset covers the full VM provisioning lifecycle:
 # create-tart-user2.sh is preferred
 ./create-tart-user2.sh <vm-name> <username>
 ./create-tart-user2.sh -d <vm-name> <username>   # delete user
+```
+
+### SSH into a VM
+```bash
+./ssh-tmux.sh <vm-name>                        # attach or create 'general' tmux session
+./ssh-tmux.sh <vm-name> <session-name>         # named session
+./ssh-tmux.sh <vm-name> <session-name> <user>  # custom username
+
+./ssh-run.sh <vm-name> <script-path>           # run a guest-side script
+./ssh-run.sh <vm-name> ~/guest-tools/devenv.sh # e.g. devenv setup
 ```
 
 ### Set up VS Code webapp shim
@@ -62,5 +74,7 @@ brew bundle
 - Shell scripts use `set -euo pipefail` for strict error handling.
 - `create-tart-user2.sh` is the production-ready version; prefer it over `create-tart-user.sh`.
 - SSH connections disable `StrictHostKeyChecking` for VM access (expected — VM IPs change).
+- `ssh-tmux.sh` uses `tmux -CC` for iTerm2 native tmux integration; guest devenv scripts should do the same when attaching.
+- SSH scripts use `zsh -l` to ensure Homebrew PATH is available on the guest.
 - `setup-vscode-webapp.sh` depends on `update-icon.sh` and `iconoverlay.swift` being in the same directory.
 - `iconoverlay.swift` is compiled at runtime via `swiftc`; no pre-build step needed.
