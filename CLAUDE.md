@@ -52,17 +52,18 @@ Requires an SSH key pair on the host (`~/.ssh/id_ed25519`) for passwordless VM a
 
 Steps performed:
 1. Check for existing VM name conflict
-2. Clone base image
-3. Resize disk
-4. Start VM
-5. Wait for IP
-6. Wait for SSH
-7. Create user (via `create-tart-user2.sh`)
-8. Install host SSH public key for the new user
-9. Set computer name / hostname
-10. Configure git credential cache (15-day TTL)
-11. Clone guest-tools into `~/dev/guest-tools`
-12. Transfer Homebrew ownership from `admin` to the new user
+2. Pull latest base image (`tart pull`)
+3. Clone base image
+4. Resize disk
+5. Start VM
+6. Wait for IP
+7. Wait for SSH
+8. Create user (via `create-tart-user2.sh`)
+9. Install host SSH public key for the new user
+10. Set computer name / hostname
+11. Configure git credential cache (15-day TTL)
+12. Clone guest-tools into `~/dev/guest-tools`
+13. Transfer Homebrew ownership from `admin` to the new user
 
 After provisioning, SSH into the VM and run guest-tools scripts manually (e.g. `check-dev-env.sh`, `setup-code-server-launch-agent.sh`) to complete dev environment setup.
 
