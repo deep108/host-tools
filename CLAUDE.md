@@ -50,6 +50,20 @@ This toolset covers the full VM provisioning lifecycle:
 Prompts for: VM user password, GitHub token (for guest-tools clone).
 Requires an SSH key pair on the host (`~/.ssh/id_ed25519`) for passwordless VM access.
 
+Steps performed:
+1. Check for existing VM name conflict
+2. Clone base image
+3. Resize disk
+4. Start VM
+5. Wait for IP
+6. Wait for SSH
+7. Create user (via `create-tart-user2.sh`)
+8. Install host SSH public key for the new user
+9. Set computer name / hostname
+10. Configure git credential cache (15-day TTL)
+11. Clone guest-tools into `~/dev/guest-tools`
+12. Transfer Homebrew ownership from `admin` to the new user
+
 After provisioning, SSH into the VM and run guest-tools scripts manually (e.g. `check-dev-env.sh`, `setup-code-server-launch-agent.sh`) to complete dev environment setup.
 
 ### Delete a VM
